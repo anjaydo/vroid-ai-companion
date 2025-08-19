@@ -1,6 +1,6 @@
 ## VRoid AI Companion
 
-<img src="https://images.ctfassets.net/bg7jm93753li/bNkR1CJkBUIdoy3on3GEB/ae1c179c95bfba5dd8fdefcc26ebc5ac/3_________.png">
+<img src="https://raw.githubusercontent.com/anjaydo/vroid-ai-companion/refs/heads/main/public/preview/preview.webp">
 
 ### Overview
 

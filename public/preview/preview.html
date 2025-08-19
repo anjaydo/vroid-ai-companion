@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: Dự án VRoid AI Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+                max-height: 400px;
+            }
+        }
+        .flow-chart-item {
+            border: 2px solid #4A5568; /* border-gray-700 */
+            background-color: #2D3748; /* bg-gray-800 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .flow-chart-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+        .arrow {
+            font-size: 2.5rem;
+            color: #4FD1C5; /* energetic & playful - teal */
+            line-height: 1;
+        }
+        .gemini-response {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Palette: Energetic & Playful -->
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#FF8A5B] to-[#FF5454] mb-2">VRoid AI Companion</h1>
+            <p class="text-lg md:text-xl text-gray-300">Hành trình tạo ra một người bạn đồng hành AI sống động</p>
+        </header>
+
+        <main class="space-y-16">
+            <!-- Section 1: Project Goals -->
+            <section class="text-center">
+                <h2 class="text-3xl font-bold mb-8 text-[#4FD1C5]">🎯 Mục tiêu Dự án</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-xl border-t-4 border-[#FF8A5B]">
+                        <div class="text-5xl mb-4">🧠</div>
+                        <h3 class="text-xl font-bold mb-2">AI Thông minh</h3>
+                        <p class="text-gray-400">Xây dựng một AI có khả năng trò chuyện theo ngữ cảnh, ghi nhớ lịch sử hội thoại để tương tác tự nhiên.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-xl border-t-4 border-[#FF5454]">
+                        <div class="text-5xl mb-4">💃</div>
+                        <h3 class="text-xl font-bold mb-2">Trải nghiệm Sống động</h3>
+                        <p class="text-gray-400">Tạo ra nhân vật 3D với animation và khả năng đồng bộ hóa khẩu hình (lip-sync) chân thực.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-xl border-t-4 border-[#4FD1C5]">
+                        <div class="text-5xl mb-4">🚀</div>
+                        <h3 class="text-xl font-bold mb-2">Nền tảng Hiện đại</h3>
+                        <p class="text-gray-400">Sử dụng các công nghệ web tiên tiến để đảm bảo hiệu năng và khả năng mở rộng.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Tech Stack -->
+            <section>
+                <h2 class="text-3xl font-bold text-center mb-8 text-[#FF8A5B]">⚙️ Công nghệ Sử dụng</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="text-gray-300 space-y-4">
+                        <p>Dự án được xây dựng trên kiến trúc Client-Server, tận dụng sức mạnh của các công nghệ hàng đầu trong phát triển web hiện đại và đồ họa 3D.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong class="text-[#4FD1C5]">Frontend:</strong> Next.js và React Three Fiber là trái tim của giao diện, xử lý việc render nhân vật 3D và logic lip-sync.</li>
+                            <li><strong class="text-[#FF5454]">Backend:</strong> FastAPI (Python) đóng vai trò bộ não, kết nối với các dịch vụ AI và quản lý dữ liệu.</li>
+                            <li><strong class="text-[#FFD65C]">Database:</strong> Supabase cung cấp một giải pháp lưu trữ lịch sử hội thoại hiệu quả và an toàn.</li>
+                        </ul>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="techStackChart"></canvas>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 3: Text-to-Speech Evolution -->
+            <section>
+                <h2 class="text-3xl font-bold text-center mb-8 text-[#FF5454]">🗣️ Hành trình Nâng cấp Giọng nói (TTS)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="chart-container">
+                        <canvas id="ttsQualityChart"></canvas>
+                    </div>
+                     <div class="text-gray-300 space-y-4">
+                        <h3 class="text-2xl font-bold text-[#FFD65C]">Từ Robot đến Tự nhiên</h3>
+                        <p>Chất lượng giọng nói là yếu tố then chốt để tạo ra một AI có hồn. Chúng tôi đã bắt đầu với giải pháp `gTTS` cơ bản, nhưng nhanh chóng nhận ra sự thiếu tự nhiên của nó.</p>
+                        <p>Quyết định nâng cấp lên API Text-to-Speech chuyên dụng của <strong class="text-[#4FD1C5]">Google AI (Gemini TTS)</strong> đã tạo ra một bước đột phá, mang lại giọng nói chất lượng cao, có cảm xúc và đa dạng, giúp trải nghiệm trò chuyện trở nên chân thực hơn rất nhiều.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Lip Sync Process -->
+            <section>
+                <h2 class="text-3xl font-bold text-center mb-12 text-[#4FD1C5]">👄 Quy trình Lip Sync Thực tế</h2>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0">
+                    <div class="flow-chart-item w-full md:w-1/4">
+                        <h3 class="text-xl font-bold text-[#FF8A5B]">Bước 1</h3>
+                        <p class="mt-2">Phân tích Âm thanh (FFT) bằng Web Audio API</p>
+                    </div>
+                    <div class="arrow mx-4 hidden md:block">→</div>
+                    <div class="arrow my-4 md:hidden">↓</div>
+                    <div class="flow-chart-item w-full md:w-1/4">
+                        <h3 class="text-xl font-bold text-[#FF5454]">Bước 2</h3>
+                        <p class="mt-2">Ánh xạ Tần số sang các Viseme (a, o, i...)</p>
+                    </div>
+                    <div class="arrow mx-4 hidden md:block">→</div>
+                     <div class="arrow my-4 md:hidden">↓</div>
+                    <div class="flow-chart-item w-full md:w-1/4">
+                        <h3 class="text-xl font-bold text-[#FFD65C]">Bước 3</h3>
+                        <p class="mt-2">Điều khiển Blendshapes của mô hình VRM</p>
+                    </div>
+                </div>
+                 <p class="text-center mt-8 max-w-3xl mx-auto text-gray-400">Toàn bộ quá trình phức tạp này được thực hiện hoàn toàn trên trình duyệt của người dùng, giúp giảm độ trễ xuống mức tối thiểu và tạo ra phản ứng nhép miệng gần như tức thì.</p>
+            </section>
+            
+             <!-- Section 5: Future Improvements -->
+            <section class="text-center">
+                <h2 class="text-3xl font-bold mb-8 text-[#FFD65C]">🚀 Hướng phát triển Tương lai</h2>
+                <div class="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-6">
+                    <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-center">
+                        <p class="text-3xl mb-2">👤</p>
+                        <p>Xác thực Người dùng</p>
+                    </div>
+                     <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-center">
+                        <p class="text-3xl mb-2">🎭</p>
+                        <p>Animation theo Cảm xúc</p>
+                    </div>
+                     <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-center">
+                        <p class="text-3xl mb-2">⚡</p>
+                        <p>Tối ưu hóa Hiệu năng</p>
+                    </div>
+                     <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-center">
+                        <p class="text-3xl mb-2">🎤</p>
+                        <p>Tương tác bằng Giọng nói</p>
+                    </div>
+                     <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-center">
+                        <p class="text-3xl mb-2">🎨</p>
+                        <p>Cải thiện UI/UX</p>
+                    </div>
+                     <div class="bg-gray-800 p-4 rounded-lg shadow-lg text-center">
+                        <p class="text-3xl mb-2">🌍</p>
+                        <p>Hỗ trợ Đa ngôn ngữ</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+
+        // Chart 1: Tech Stack Distribution
+        const techStackCtx = document.getElementById('techStackChart').getContext('2d');
+        new Chart(techStackCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Frontend (Next.js, R3F)', 'Backend (FastAPI, Python)', 'Database (Supabase)', 'AI Services (Google Gemini)'],
+                datasets: [{
+                    label: 'Phân bổ Công nghệ',
+                    data: [40, 30, 15, 15],
+                    backgroundColor: ['#4FD1C5', '#FF8A5B', '#FFD65C', '#FF5454'],
+                    borderColor: '#1A202C',
+                    borderWidth: 4,
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#A0AEC0',
+                            font: { size: 12 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: { title: tooltipTitleCallback }
+                    }
+                },
+                cutout: '60%'
+            }
+        });
+
+        // Chart 2: TTS Quality Comparison
+        const ttsQualityCtx = document.getElementById('ttsQualityChart').getContext('2d');
+        new Chart(ttsQualityCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Tốc độ', 'Độ tự nhiên', 'Đa dạng Giọng nói', 'Chi phí'],
+                datasets: [
+                    {
+                        label: 'gTTS (Giải pháp ban đầu)',
+                        data: [90, 30, 20, 100],
+                        backgroundColor: '#FF8A5B',
+                        borderRadius: 6
+                    },
+                    {
+                        label: 'Google AI TTS (Giải pháp nâng cao)',
+                        data: [75, 95, 90, 60],
+                        backgroundColor: '#4FD1C5',
+                        borderRadius: 6
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: { color: '#2D3748' },
+                        ticks: { color: '#A0AEC0' }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { color: '#A0AEC0' }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: { color: '#A0AEC0' }
+                    },
+                    tooltip: {
+                        callbacks: { title: tooltipTitleCallback }
+                    }
+                }
+            }
+        });
+
+        // Gemini API Integration Logic
+        const geminiForm = document.getElementById('gemini-form');
+        const geminiPromptInput = document.getElementById('gemini-prompt');
+        const geminiSubmitButton = document.getElementById('gemini-submit');
+        const geminiResponseContainer = document.getElementById('gemini-response-container');
+        
+        const API_KEY = ""; // NOTE: For security, API keys should not be exposed client-side in a real app.
+                               // This is for demonstration purposes only.
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
+        
+        const projectContext = `
+            Bạn là một AI trợ lý cho dự án 'VRoid AI Companion'. Nhiệm vụ của bạn là trả lời các câu hỏi về dự án dựa trên thông tin sau đây. Hãy trả lời một cách hữu ích, súc tích và chỉ trong phạm vi thông tin được cung cấp.
+
+            Thông tin dự án:
+            - Tên dự án: VRoid AI Companion
+            - Mục tiêu: Tạo ra một người bạn đồng hành AI tương tác dưới dạng avatar 3D. Các tính năng chính bao gồm trò chuyện thông minh, nhận biết ngữ cảnh và đồng bộ hóa khẩu hình (lip-sync) theo âm thanh một cách chân thực.
+            - Công nghệ sử dụng:
+              - Frontend: Next.js, React Three Fiber để render 3D, @pixiv/three-vrm để điều khiển avatar.
+              - Backend: FastAPI (Python), Google Gemini cho việc trò chuyện và tạo giọng nói (TTS) chất lượng cao.
+              - Database: Supabase để lưu trữ lịch sử hội thoại.
+            - Thách thức & Giải pháp (TTS): Đã nâng cấp từ gTTS chất lượng thấp lên Gemini TTS chất lượng cao để có giọng nói tự nhiên.
+            - Thách thức & Giải pháp (Lip Sync): Đã triển khai cơ chế lip-sync thời gian thực phía client bằng Web Audio API để phân tích tần số âm thanh (FFT) và ánh xạ chúng vào blendshapes của avatar VRM. Điều này cho phản hồi tức thì mà không cần chờ server.
+            - Kế hoạch tương lai: Xác thực người dùng, animation theo cảm xúc, tối ưu hóa hiệu năng và cho phép tương tác bằng giọng nói.
+        `;
+
+        geminiForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userPrompt = geminiPromptInput.value.trim();
+            if (!userPrompt || API_KEY === "") {
+                geminiResponseContainer.textContent = API_KEY === "" 
+                    ? "Vui lòng thêm API Key của bạn vào trong code để sử dụng tính năng này."
+                    : "Vui lòng nhập câu hỏi của bạn.";
+                return;
+            }
+
+            geminiSubmitButton.disabled = true;
+            geminiResponseContainer.textContent = 'AI đang suy nghĩ...';
+
+            const fullPrompt = `${projectContext}\n\nBây giờ, hãy trả lời câu hỏi của người dùng sau: "${userPrompt}"`;
+            
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ text: fullPrompt }]
+                        }]
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                const aiResponse = data.candidates[0].content.parts[0].text;
+                geminiResponseContainer.textContent = aiResponse;
+
+            } catch (error) {
+                console.error('Lỗi khi gọi Gemini API:', error);
+                geminiResponseContainer.textContent = 'Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.';
+            } finally {
+                geminiSubmitButton.disabled = false;
+            }
+        });
+
+    </script>
+</body>
+</html>
+
