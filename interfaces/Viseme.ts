@@ -1,4 +1,4 @@
-export default interface Viseme {
+export interface Viseme {
   time: number;
   value: string;
 }

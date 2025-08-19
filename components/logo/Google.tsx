@@ -1,4 +1,4 @@
-export default function Google(props) {
+export default function Google(props: { className?: string }) {
   return (
     <svg
       _ngcontent-ng-c721292039=""

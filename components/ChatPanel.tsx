@@ -1,5 +1,5 @@
 import Message from "@/interfaces/Message";
-import React, { useState, useRef, useEffect, Suspense } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import { IoSend } from "react-icons/io5";
 

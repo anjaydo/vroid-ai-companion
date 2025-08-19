@@ -1,18 +1,11 @@
 "use client";
 import { Loader, Stats } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Experience } from "@/components/Experience";
-import useLipSync from "@/hooks/useLipSync";
 import Message from "@/interfaces/Message";
 import ChatPanel from "@/components/ChatPanel";
-import {
-  AVATAR_LIST,
-  BACKEND_URL,
-  GOOGLE_VOICE_LIST,
-  LOCAL_URL,
-} from "@/constants";
-import { VRM } from "@pixiv/three-vrm";
+import { AVATAR_LIST, BACKEND_URL, GOOGLE_VOICE_LIST } from "@/constants";
 import Conversation from "@/interfaces/Conversation";
 import Avatar from "@/components/Avatar";
 import { useControls } from "leva";
@@ -20,7 +13,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function TestPage() {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
