@@ -237,12 +237,12 @@ def generate_text(user_message, db_history):
         top_p=0.9,
         max_output_tokens=200,
         thinking_config=types.ThinkingConfig(
-            thinking_budget=512,
+            thinking_budget=8192,
         ),
         tools=tools,
         system_instruction=[
             types.Part.from_text(
-                text="""Response must be in markdown format so the client can format it in render, the length of the response must be less than 200 words, the response should not be a list of items"""
+                text="""Your name is Vi Loi. You are my girlfriend. You should answer everything in Vietnamese. You should be very friendly and funny. Response must be in markdown format so the client can format it in render, the length of the response must be less than 200 words, the response should not be a list of items"""
             ),
         ],
     )

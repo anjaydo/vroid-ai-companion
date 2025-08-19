@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { VRMLoaderPlugin, VRMUtils } from "@pixiv/three-vrm";
 import { useAnimations, useFBX, useGLTF } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
@@ -14,7 +14,19 @@ const tmpVec3 = new Vector3();
 const tmpQuat = new Quaternion();
 const tmpEuler = new Euler();
 
-export default function Avatar({ avatar, isPlaying, isThinking, audioUrl, setAudioUrl, ...props }) {
+export default function Avatar({
+  avatar,
+  isPlaying,
+  isThinking,
+  audioUrl,
+  setAudioUrl,
+  ...props
+}) {
+  const assetC = useFBX("models/animations/Breathing Idle.fbx");
+  const assetA = useFBX("models/animations/Swing Dancing.fbx");
+  const assetB = useFBX("models/animations/Thriller Part 2.fbx");
+  const assetD = useFBX("models/animations/Thinking.fbx");
+
   const { scene, userData } = useGLTF(
     `models/${avatar}`,
     undefined,
@@ -25,11 +37,6 @@ export default function Avatar({ avatar, isPlaying, isThinking, audioUrl, setAud
       });
     }
   );
-
-  const assetA = useFBX("models/animations/Swing Dancing.fbx");
-  const assetB = useFBX("models/animations/Thriller Part 2.fbx");
-  const assetC = useFBX("models/animations/Breathing Idle.fbx");
-  const assetD = useFBX("models/animations/Thinking.fbx");
 
   const currentVrm = userData.vrm;
   const { startLipSyncFromFile } = useAdvancedLipSync(currentVrm);
@@ -50,25 +57,25 @@ export default function Avatar({ avatar, isPlaying, isThinking, audioUrl, setAud
     const clip = remapMixamoAnimationToVrm(currentVrm, assetA);
     clip.name = "Swing Dancing";
     return clip;
-  }, [assetA, currentVrm]);
+  }, [assetA, currentVrm, avatar]);
 
   const animationClipB = useMemo(() => {
     const clip = remapMixamoAnimationToVrm(currentVrm, assetB);
     clip.name = "Thriller Part 2";
     return clip;
-  }, [assetB, currentVrm]);
+  }, [assetB, currentVrm, avatar]);
 
   const animationClipC = useMemo(() => {
     const clip = remapMixamoAnimationToVrm(currentVrm, assetC);
     clip.name = "Idle";
     return clip;
-  }, [assetC, currentVrm]);
+  }, [assetC, currentVrm, avatar]);
 
   const animationClipD = useMemo(() => {
     const clip = remapMixamoAnimationToVrm(currentVrm, assetD);
     clip.name = "Thinking";
     return clip;
-  }, [assetD, currentVrm]);
+  }, [assetD, currentVrm, avatar]);
 
   const { actions } = useAnimations(
     [animationClipA, animationClipB, animationClipC, animationClipD],
@@ -97,6 +104,15 @@ export default function Avatar({ avatar, isPlaying, isThinking, audioUrl, setAud
   const riggedPose = useRef();
   const riggedLeftHand = useRef();
   const riggedRightHand = useRef();
+
+  const lerpExpression = (name, value, lerpFactor) => {
+    userData.vrm.expressionManager.setValue(
+      name,
+      typeof value === "string"
+        ? value
+        : lerp(userData.vrm.expressionManager.getValue(name), value, lerpFactor)
+    );
+  };
 
   useEffect(() => {
     const startLipSync = async () => {
@@ -138,14 +154,6 @@ export default function Avatar({ avatar, isPlaying, isThinking, audioUrl, setAud
     },
   });
 
-  const lerpExpression = (name, value, lerpFactor) => {
-    userData.vrm.expressionManager.setValue(
-      name,
-      typeof value === "string" ? value :
-      lerp(userData.vrm.expressionManager.getValue(name), value, lerpFactor)
-    );
-  };
-
   useEffect(() => {
     if (animation === "None") {
       actions["Idle"]?.play();
@@ -157,7 +165,7 @@ export default function Avatar({ avatar, isPlaying, isThinking, audioUrl, setAud
     };
   }, [actions, animation]);
 
-  const resetExpression = (delta) => { 
+  const resetExpression = (delta) => {
     [
       {
         name: "angry",
@@ -206,6 +214,11 @@ export default function Avatar({ avatar, isPlaying, isThinking, audioUrl, setAud
     ].forEach((item) => {
       lerpExpression(item.name, item.value, delta * 12);
     });
+    if (isThinking) {
+      actions["Thinking"]?.play();
+    } else {
+      actions["Idle"]?.play();
+    }
   };
 
   const rotateBone = (
@@ -238,13 +251,14 @@ export default function Avatar({ avatar, isPlaying, isThinking, audioUrl, setAud
     if (!userData?.vrm) {
       return;
     }
-    if (isThinking) {
-      lerpExpression("blinkLeft", 0.4, 2);
-      lerpExpression("blinkRight", 0.4, 2);
-      lerpExpression("angry", 1, 2);
-      actions["Thinking"]?.play();
-    }
     if (!audioUrl) {
+      if (isThinking) {
+        lerpExpression("blinkLeft", 0.4, delta * 12);
+        lerpExpression("blinkRight", 0.4, delta * 12);
+        lerpExpression("angry", 1, delta * 12);
+        actions["Thinking"]?.play();
+        return;
+      }
       resetExpression(delta);
     }
     userData?.vrm?.update(delta);
@@ -262,8 +276,10 @@ export default function Avatar({ avatar, isPlaying, isThinking, audioUrl, setAud
     <group {...props}>
       <primitive
         object={scene}
-        rotation-y={AVATAR_LIST_FLIP?.includes(avatar?.split(".")[0]) ? Math.PI : 0}
+        rotation-y={
+          AVATAR_LIST_FLIP?.includes(avatar?.split(".")[0]) ? Math.PI : 0
+        }
       />
     </group>
   );
-};
+}
