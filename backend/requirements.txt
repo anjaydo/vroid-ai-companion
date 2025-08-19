@@ -1,0 +1,6 @@
+fastapi[all]
+supabase
+python-dotenv
+# google-generativeai
+gTTS
+google-genai
