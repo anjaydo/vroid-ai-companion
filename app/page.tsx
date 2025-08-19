@@ -1,101 +1,114 @@
+import Google from "@/components/logo/Google";
+import { BACKEND_URL } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
+import { FaBookTanakh } from "react-icons/fa6";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+    <div
+      style={{
+        backgroundImage: "url('/images/bg.webp')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+      className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20"
+    >
+      <main className="flex flex-col gap-[32px] row-start-2 items-center justify-center text-black w-full h-full z-100">
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
+          className="h-[90px] w-auto -translate-x-3.5"
+          src="/images/logo_vroid.svg"
+          alt="Vroid logo"
           width={180}
-          height={38}
+          height={40}
           priority
         />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+        <h1 className="text-6xl font-bold text-black -mt-6">
+          <span className="sr-only">VROID</span>
+          <span>AI</span> <span>COMPANION</span>
+        </h1>
+        <h2 className="text-2xl text-black/80 text-center mx-auto max-w-[800px]">
+          Vroid avatar, chats with a Gemini-based backend, and performs
+          audio-driven lip sync with blendshapes and Mixamo-retargeted
+          animations.
+        </h2>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href={BACKEND_URL + "/docs"}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+            <FaBookTanakh />
+            View Docs
           </a>
           <Link
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
+            className="rounded-full bg-black text-gray-200 border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:text-white hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
             href="/chat"
           >
             Preview
           </Link>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+      <div className="fixed bottom-0 left-0 w-full h-full bg-gradient-to-b from-white to-transparent z-10"></div>
+      <div className="fixed bottom-0 left-0 w-full h-[400px] bg-gradient-to-t from-40% from-white to-100% to-transparent z-10"></div>
+      <footer className="fixed bottom-0 left-0 pb-12 w-full flex gap-[60px] flex-wrap items-center justify-center z-20">
+        <Link
+          className="h-max w-auto flex items-center justify-center"
           target="_blank"
           rel="noopener noreferrer"
+          href="https://nextjs.org/"
         >
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            className=""
+            src="/next.svg"
+            alt="Next.js logo"
+            width={180}
+            height={40}
+            priority
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+        </Link>
+        <Link
+          className="h-max w-auto flex items-center justify-center"
           target="_blank"
           rel="noopener noreferrer"
+          href="https://supabase.com/"
         >
           <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+            className="
+            h-[50px] w-auto"
+            src="/images/supabase-logo-wordmark--light.svg"
+            alt="Supabase logo"
+            width={180}
+            height={40}
+            priority
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+        </Link>
+        <Link
+          className="h-max w-auto flex items-center justify-center"
           target="_blank"
           rel="noopener noreferrer"
+          href="https://www.google.com"
+        >
+          <Google className="w-[323px] aspect-[323/49] text-white fill-black" />
+        </Link>
+        <Link
+          className="h-max w-auto flex items-center justify-center"
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://vroid.com/en"
         >
           <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+            className="
+            h-[50px] w-auto"
+            src="/images/logo_vroid.svg"
+            alt="Vroid logo"
+            width={180}
+            height={40}
+            priority
           />
-          Go to nextjs.org →
-        </a>
+        </Link>
       </footer>
     </div>
   );

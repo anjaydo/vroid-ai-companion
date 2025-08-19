@@ -16,6 +16,8 @@ import { VRM } from "@pixiv/three-vrm";
 import Conversation from "@/interfaces/Conversation";
 import Avatar from "@/components/Avatar";
 import { useControls } from "leva";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function TestPage() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -111,7 +113,18 @@ export default function TestPage() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-[450px] h-full p-4 z-10">
+      <div className="fixed top-0 w-full justify-center h-auto flex mx-auto z-100">
+        <Link className="translate-y-6" href="/">
+          <Image
+            className="invert"
+            src="/images/logo_vroid.svg"
+            alt="Vroid logo"
+            width={180}
+            height={40}
+          />
+        </Link>
+      </div>
+      <div className="fixed top-0 left-0 w-[450px] h-full p-4 pt-20 z-10">
         <ChatPanel
           messages={chatHistory}
           onNewMessage={handleNewMessageFromChat}
@@ -130,7 +143,7 @@ export default function TestPage() {
       >
         <color attach="background" args={["#333"]} />
         <fog attach="fog" args={["#333", 10, 20]} />
-        <Stats />
+        <Stats className="fixed bottom-0 right-0 flex justify-end items-end pointer-events-none user-select-none" />
         <Suspense>
           <Experience>
             <Avatar
