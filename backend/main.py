@@ -252,8 +252,9 @@ def generate_text(user_message, db_history):
         model=model, config=generate_content_config, history=gemini_history
     )
     response = chat_session.send_message(user_message)
-    if response.text is None:
-        print(f"Response: {response}")
+    while response.text is None:
+        print("Response is None, waiting for response...")
+        response = chat_session.send_message(user_message)
     return response.text
 
 

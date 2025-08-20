@@ -48,7 +48,7 @@ export const Experience = ({ children }) => {
         far={cameraProps.far}
       />
       {/* {mycam && <CameraControls camera={mycam} />} */}
-      <Environment preset="sunset" />
+      {/* <Environment preset="sunset" /> */}
       <directionalLight intensity={2} position={[10, 10, 5]} />
       <directionalLight intensity={1} position={[-10, 10, 5]} />
       <group>{children}</group>

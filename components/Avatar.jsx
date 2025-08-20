@@ -3,7 +3,7 @@ import { VRMLoaderPlugin, VRMUtils } from "@pixiv/three-vrm";
 import { useAnimations, useFBX, useGLTF } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useControls } from "leva";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Euler, Object3D, Quaternion, Vector3 } from "three";
 import { lerp } from "three/src/math/MathUtils.js";
 import { remapMixamoAnimationToVrm } from "@/utils/remapMixamoAnimationToVrm";
@@ -26,6 +26,8 @@ export default function Avatar({
   const assetA = useFBX("models/animations/Swing Dancing.fbx");
   const assetB = useFBX("models/animations/Thriller Part 2.fbx");
   const assetD = useFBX("models/animations/Thinking.fbx");
+  const assetE = useFBX("models/animations/Kiss.fbx");
+  const [isKissing, setIsKissing] = useState(false);
 
   const { scene, userData } = useGLTF(
     `models/${avatar}`,
@@ -77,8 +79,20 @@ export default function Avatar({
     return clip;
   }, [assetD, currentVrm, avatar]);
 
+  const animationClipE = useMemo(() => {
+    const clip = remapMixamoAnimationToVrm(currentVrm, assetE);
+    clip.name = "Kiss";
+    return clip;
+  }, [assetE, currentVrm, avatar]);
+
   const { actions } = useAnimations(
-    [animationClipA, animationClipB, animationClipC, animationClipD],
+    [
+      animationClipA,
+      animationClipB,
+      animationClipC,
+      animationClipD,
+      animationClipE,
+    ],
     currentVrm.scene
   );
 
@@ -149,7 +163,7 @@ export default function Avatar({
     sad: { value: 0, min: 0, max: 1 },
     happy: { value: 0, min: 0, max: 1 },
     animation: {
-      options: ["Idle", "Swing Dancing", "Thriller Part 2", "Thinking"],
+      options: ["Idle", "Swing Dancing", "Thriller Part 2", "Thinking", "Kiss"],
       value: "Idle",
     },
   });
@@ -207,18 +221,9 @@ export default function Avatar({
         name: "blinkRight",
         value: blinkRight,
       },
-      {
-        name: "animation",
-        value: isThinking ? "Thinking" : "Idle",
-      },
     ].forEach((item) => {
       lerpExpression(item.name, item.value, delta * 12);
     });
-    if (isThinking) {
-      actions["Thinking"]?.play();
-    } else {
-      actions["Idle"]?.play();
-    }
   };
 
   const rotateBone = (
@@ -245,6 +250,38 @@ export default function Avatar({
     bone.quaternion.slerp(tmpQuat, slerpFactor);
   };
 
+  const animateShy = () => {
+    console.log("clicked");
+  };
+
+  const animateKiss = () => {
+    // userData.vrm.expressionManager.setValue("happy", 0.3);
+    // userData.vrm.expressionManager.setValue("blinkLeft", 1);
+    // userData.vrm.expressionManager.setValue("blinkRight", 1);
+    actions["Idle"]?.stop();
+    actions["Kiss"]?.play();
+    setIsKissing(true);
+    setTimeout(() => {
+      // userData.vrm.expressionManager.setValue("happy", 0);
+      // userData.vrm.expressionManager.setValue("blinkLeft", 0);
+      // userData.vrm.expressionManager.setValue("blinkRight", 0);
+      actions["Kiss"]?.stop();
+      actions["Idle"]?.play();
+      setIsKissing(false);
+    }, 5000);
+  };
+
+  useEffect(() => {
+    document?.body
+      ?.querySelector("canvas")
+      ?.addEventListener("click", animateKiss);
+    return () => {
+      document?.body
+        ?.querySelector("canvas")
+        ?.removeEventListener("click", animateKiss);
+    };
+  }, []);
+
   const audioTime = useRef(0);
 
   useFrame((_, delta) => {
@@ -252,17 +289,25 @@ export default function Avatar({
       return;
     }
     if (!audioUrl) {
-      if (isThinking) {
-        lerpExpression("blinkLeft", 0.4, delta * 12);
-        lerpExpression("blinkRight", 0.4, delta * 12);
-        lerpExpression("angry", 1, delta * 12);
-        actions["Thinking"]?.play();
-        return;
-      }
       resetExpression(delta);
+    }
+    if (isThinking) {
+      lerpExpression("blinkLeft", 0.4, delta * 12);
+      lerpExpression("blinkRight", 0.4, delta * 12);
+      lerpExpression("angry", 1, delta * 12);
     }
     userData?.vrm?.update(delta);
   });
+
+  useEffect(() => {
+    if (isThinking) {
+      actions["Idle"]?.stop();
+      actions["Thinking"]?.play();
+    } else {
+      actions["Thinking"]?.stop();
+      actions["Idle"]?.play();
+    }
+  }, [isThinking]);
 
   const lookAtDestination = useRef(new Vector3(0, 0, 0));
   const camera = useThree((state) => state.camera);
